@@ -8,8 +8,11 @@ datasource db {
 }
 
 model Appointment {
-  id       String   @id @default(uuid())
-  customer String
-  startAt  DateTime
-  endAt    DateTime
+  id         String    @id @default(uuid())
+  customer   String
+  provider   String
+  startAt    DateTime
+  endAt      DateTime
+  createdAt  DateTime  @default(now())
+  canceledAt DateTime?
 }
