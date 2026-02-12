@@ -3,6 +3,7 @@ import { AppointmentsRepository } from "../repositories/appointments-repository"
 
 interface CreateAppointmentRequest {
     customer: string;
+    provider: string;
     startAt: Date;
     endAt: Date;
 }
@@ -16,6 +17,7 @@ export class CreateAppointment {
 
     async execute({
         customer,
+        provider,
         startAt,
         endAt
     }: CreateAppointmentRequest): Promise<CreateAppointmentResponse> {
@@ -31,6 +33,7 @@ export class CreateAppointment {
 
         const appointment = new Appointment({
             customer,
+            provider,
             startAt,
             endAt
         });
