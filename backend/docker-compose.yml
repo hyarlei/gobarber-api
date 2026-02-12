@@ -1,0 +1,16 @@
+version: '3'
+
+services:
+  gobarber-db:
+    image: postgres:15-alpine
+    ports:
+      - '5432:5432'
+    environment:
+      - POSTGRES_USER=docker
+      - POSTGRES_PASSWORD=docker
+      - POSTGRES_DB=gobarber
+    volumes:
+      - pgdata_gobarber:/var/lib/postgresql/data
+
+volumes:
+  pgdata_gobarber:
