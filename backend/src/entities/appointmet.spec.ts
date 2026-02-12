@@ -30,8 +30,8 @@ test('cannot create an appointment with end date before start date', () => {
 });
 
 test('cannot create an appointment with start date before now', () => {
-  const startAt = getFutureDate('2024-01-10');
-  const endAt = getFutureDate('2024-01-09');
+  const startAt = new Date('2024-01-01');
+  const endAt = getFutureDate('2024-01-11');
 
   expect(() => {
     new Appointment({
@@ -41,3 +41,9 @@ test('cannot create an appointment with start date before now', () => {
     });
   }).toThrow()
 });
+
+// ✅ Testa criação básica
+// ✅ Testa validação de datas
+// ❌ Não testa geração de ID
+// ❌ Não testa ID customizado
+// ❌ Não testa todos os getters
