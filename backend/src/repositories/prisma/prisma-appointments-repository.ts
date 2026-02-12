@@ -9,6 +9,7 @@ export class PrismaAppointmentsRepository implements AppointmentsRepository {
         await this.prisma.appointment.create({
             data: {
                 id: appointment.id,
+                provider: appointment.provider,
                 customer: appointment.customer,
                 startAt: appointment.startAt,
                 endAt: appointment.endAt
@@ -23,21 +24,18 @@ export class PrismaAppointmentsRepository implements AppointmentsRepository {
         const raw = await this.prisma.appointment.findFirst({
             where: {
                 OR: [
-                    // Caso 1: O novo agendamento começa durante um existente
                     {
                         AND: [
                             { startAt: { lte: startAt } },
                             { endAt: { gt: startAt } },
                         ],
                     },
-                    // Caso 2: O novo agendamento termina durante um existente
                     {
                         AND: [
                             { startAt: { lt: endAt } },
                             { endAt: { gte: endAt } },
                         ],
                     },
-                    // Caso 3: O novo agendamento engloba um existente
                     {
                         AND: [
                             { startAt: { gte: startAt } },
@@ -54,6 +52,7 @@ export class PrismaAppointmentsRepository implements AppointmentsRepository {
 
         return new Appointment({
             customer: raw.customer,
+            provider: raw.provider,
             startAt: raw.startAt,
             endAt: raw.endAt,
         }), raw.id;
