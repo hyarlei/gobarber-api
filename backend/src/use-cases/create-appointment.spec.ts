@@ -16,15 +16,15 @@ describe('Create Appointment', () => {
 
         await expect(createAppointment.execute({
             customer: 'John Doe',
+            provider: 'Jane Doe',
             startAt,
-            endAt
+            endAt,
         })).resolves.toBeInstanceOf(Appointment);
     });
 
     it('should not be able to create an appointment with overlapping dates', async () => {
         const startAt = getFutureDate('2024-01-10');
         const endAt = getFutureDate('2024-01-15');
-
         const appointmentsRepository = new InMemoryAppointmentsRepository();
         const createAppointment = new CreateAppointment(
             appointmentsRepository
@@ -32,32 +32,37 @@ describe('Create Appointment', () => {
 
         await createAppointment.execute({
             customer: 'John Doe',
+            provider: 'Jane Doe',
             startAt,
-            endAt
+            endAt,
         });
 
         expect(createAppointment.execute({
             customer: 'John Doe',
+            provider: 'Jane Doe',
             startAt: getFutureDate('2024-01-14'),
-            endAt: getFutureDate('2024-01-18')
+            endAt: getFutureDate('2024-01-18'),
         })).rejects.toBeInstanceOf(Error);
 
         expect(createAppointment.execute({
             customer: 'John Doe',
+            provider: 'Jane Doe',
             startAt: getFutureDate('2024-01-08'),
-            endAt: getFutureDate('2024-01-12')
+            endAt: getFutureDate('2024-01-12'),
         })).rejects.toBeInstanceOf(Error);
 
         expect(createAppointment.execute({
             customer: 'John Doe',
+            provider: 'Jane Doe',
             startAt: getFutureDate('2024-01-08'),
-            endAt: getFutureDate('2024-01-17')
+            endAt: getFutureDate('2024-01-17'),
         })).rejects.toBeInstanceOf(Error);
 
         expect(createAppointment.execute({
             customer: 'John Doe',
+            provider: 'Jane Doe',
             startAt: getFutureDate('2024-01-11'),
-            endAt: getFutureDate('2024-01-12')
+            endAt: getFutureDate('2024-01-12'),
         })).rejects.toBeInstanceOf(Error);
     });
 });
