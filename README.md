@@ -84,13 +84,13 @@ O que garante que o sistema não vai quebrar no deploy.
 [ ] Testar rota de agendamento (Fluxo completo)
 
 🛠️ Tecnologias Focadas
-Linguagem: TypeScript / Java (Clean Arch permite trocar!)
+Linguagem: TypeScript
 
-Framework: NestJS / Spring Boot
+Framework: NestJS
 
-ORM: Prisma / JPA
+ORM: Prisma
 
-Testes: Vitest / JUnit
+Testes: Vitest
 
 💡 Notas de Estudo (Insights do Projeto)
 Utilizar ISO Strings para datas para evitar problemas de fuso horário entre cliente e barbearia.
