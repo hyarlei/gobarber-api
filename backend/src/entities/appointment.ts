@@ -1,3 +1,5 @@
+import { randomUUID } from "crypto";
+
 export interface AppointmentProps {
   customer: string;
   startAt: Date;
@@ -5,7 +7,12 @@ export interface AppointmentProps {
 }
 
 export class Appointment {
+  private _id: string;
   private props: AppointmentProps;
+
+  get id() {
+    return this._id;
+  }
 
   get customer() {
     return this.props.customer;
@@ -19,9 +26,10 @@ export class Appointment {
     return this.props.endAt;
   }
 
-  constructor(props: AppointmentProps) {
+  constructor(props: AppointmentProps, id?: string) {
     const { startAt, endAt } = props;
 
+    // Validações
     if (startAt <= new Date()) {
       throw new Error('Invalid start date');
     }
@@ -30,6 +38,8 @@ export class Appointment {
       throw new Error('Invalid end date');
     }
 
+    // Atribuições
+    this._id = id ?? randomUUID();
     this.props = props;
   }
 }
