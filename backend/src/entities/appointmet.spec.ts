@@ -42,8 +42,64 @@ test('cannot create an appointment with start date before now', () => {
   }).toThrow()
 });
 
-// ✅ Testa criação básica
-// ✅ Testa validação de datas
-// ❌ Não testa geração de ID
-// ❌ Não testa ID customizado
-// ❌ Não testa todos os getters
+test('should generate a unique ID automatically', () => {
+  const startAt = getFutureDate('2024-01-10');
+  const endAt = getFutureDate('2024-01-11');
+
+  const appointment = new Appointment({
+    customer: 'John Doe',
+    startAt,
+    endAt,
+  });
+
+  expect(appointment.id).toBeTruthy();
+  expect(typeof appointment.id).toBe('string');
+  expect(appointment.id.length).toBeGreaterThan(0);
+});
+
+test('should generate different IDs for different appointments', () => {
+  const startAt = getFutureDate('2024-01-10');
+  const endAt = getFutureDate('2024-01-11');
+
+  const appointment1 = new Appointment({
+    customer: 'John Doe',
+    startAt,
+    endAt,
+  });
+
+  const appointment2 = new Appointment({
+    customer: 'Jane Doe',
+    startAt,
+    endAt,
+  });
+
+  expect(appointment1.id).not.toEqual(appointment2.id);
+});
+
+test('should accept a custom ID', () => {
+  const startAt = getFutureDate('2024-01-10');
+  const endAt = getFutureDate('2024-01-11');
+  const customId = 'custom-id-123';
+
+  const appointment = new Appointment({
+    customer: 'John Doe',
+    startAt,
+    endAt,
+  }, customId);
+
+  expect(appointment.id).toBe(customId);
+});
+
+test('should generate valid UUID format', () => {
+  const startAt = getFutureDate('2024-01-10');
+  const endAt = getFutureDate('2024-01-11');
+
+  const appointment = new Appointment({
+    customer: 'John Doe',
+    startAt,
+    endAt,
+  });
+
+  const uuidRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
+  expect(appointment.id).toMatch(uuidRegex);
+});
