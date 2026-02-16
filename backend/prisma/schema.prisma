@@ -10,9 +10,31 @@ datasource db {
 model Appointment {
   id         String    @id @default(uuid())
   customer   String
-  provider   String
+  providerId String
   startAt    DateTime
   endAt      DateTime
   createdAt  DateTime  @default(now())
   canceledAt DateTime?
+  serviceId  String
+  notes      String?
+  service    Service   @relation(fields: [serviceId], references: [id])
+  provider   Provider  @relation(fields: [providerId], references: [id])
+}
+
+model Service {
+  id           String        @id @default(uuid())
+  name         String
+  description  String?
+  price        Float
+  duration     Int
+  isActive     Boolean       @default(true)
+  appointments Appointment[]
+}
+
+model Provider {
+  id           String        @id @default(uuid())
+  name         String
+  email        String        @unique
+  phone        String?
+  appointments Appointment[]
 }
