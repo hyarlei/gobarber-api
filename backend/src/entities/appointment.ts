@@ -1,8 +1,10 @@
-import { randomUUID } from "crypto";
+import crypto from 'crypto';
 
 export interface AppointmentProps {
   customer: string;
-  provider: string;
+  providerId: string;
+  serviceId: string;
+  notes?: string;
   startAt: Date;
   endAt: Date;
   createdAt?: Date;
@@ -21,8 +23,16 @@ export class Appointment {
     return this.props.customer;
   }
 
-  get provider() {
-    return this.props.provider;
+  get providerId() {
+    return this.props.providerId;
+  }
+
+  get serviceId() {
+    return this.props.serviceId;
+  }
+
+  get notes() {
+    return this.props.notes || null;
   }
 
   get startAt() {
@@ -57,15 +67,11 @@ export class Appointment {
       throw new Error('Customer is required');
     }
 
-    if (!props.provider || props.provider.trim() === '') {
-      throw new Error('Provider is required');
-    }
-
     if (duration < 30 * 60 * 1000) {
       throw new Error('Appointment must be at least 30 minutes long')
     }
 
-    this._id = id ?? randomUUID();
+    this._id = id || crypto.randomUUID();
     this.props = {
       ...props,
       createdAt: props.createdAt ?? new Date(),
