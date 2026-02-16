@@ -8,7 +8,8 @@ test('create an appointment', () => {
 
   const appointment = new Appointment({
     customer: 'John Doe',
-    provider: 'Jane Doe',
+    providerId: 'provider-123',
+    serviceId: 'service-123',
     startAt,
     endAt
   });
@@ -24,7 +25,8 @@ test('cannot create an appointment with end date before start date', () => {
   expect(() => {
     new Appointment({
       customer: 'John Doe',
-      provider: 'Jane Doe',
+      providerId: 'provider-123',
+      serviceId: 'service-123',
       startAt,
       endAt,
     });
@@ -38,7 +40,8 @@ test('cannot create an appointment with start date before now', () => {
   expect(() => {
     new Appointment({
       customer: 'John Doe',
-      provider: 'Jane Doe',
+      providerId: 'provider-123',
+      serviceId: 'service-123',
       startAt,
       endAt,
     });
@@ -51,7 +54,8 @@ test('should generate a unique ID automatically', () => {
 
   const appointment = new Appointment({
     customer: 'John Doe',
-    provider: 'Jane Doe',
+    providerId: 'provider-123',
+    serviceId: 'service-123',
     startAt,
     endAt,
   });
@@ -67,14 +71,16 @@ test('should generate different IDs for different appointments', () => {
 
   const appointment1 = new Appointment({
     customer: 'John Doe',
-    provider: 'Jane Doe',
+    providerId: 'provider-123',
+    serviceId: 'service-123',
     startAt,
     endAt,
   });
 
   const appointment2 = new Appointment({
     customer: 'Jane Doe',
-    provider: 'Jane Doe',
+    providerId: 'provider-123',
+    serviceId: 'service-456',
     startAt,
     endAt,
   });
@@ -89,7 +95,8 @@ test('should accept a custom ID', () => {
 
   const appointment = new Appointment({
     customer: 'John Doe',
-    provider: 'Jane Doe',
+    providerId: 'provider-123',
+    serviceId: 'service-123',
     startAt,
     endAt,
   }, customId);
@@ -103,7 +110,8 @@ test('should generate valid UUID format', () => {
 
   const appointment = new Appointment({
     customer: 'John Doe',
-    provider: 'Jane Doe',
+    providerId: 'provider-123',
+    serviceId: 'service-123',
     startAt,
     endAt,
   });
@@ -118,12 +126,13 @@ test('should have a provider', () => {
 
   const appointment = new Appointment({
     customer: 'John Doe',
-    provider: 'Jane Doe',
+    providerId: 'provider-123',
+    serviceId: 'service-123',
     startAt,
     endAt,
   });
 
-  expect(appointment.provider).toBe('Jane Doe');
+  expect(appointment.providerId).toBe('provider-123');
 });
 
 test('cannot create an appointment without a provider', () => {
@@ -133,7 +142,8 @@ test('cannot create an appointment without a provider', () => {
   expect(() => {
     new Appointment({
       customer: 'John Doe',
-      provider: '',
+      providerId: '',
+      serviceId: 'service-123',
       startAt,
       endAt,
     });
@@ -147,7 +157,8 @@ test('cannot create an appointment without a customer', () => {
   expect(() => {
     new Appointment({
       customer: '',
-      provider: 'Jane Doe',
+      providerId: 'provider-123',
+      serviceId: 'service-123',
       startAt,
       endAt,
     });
@@ -160,7 +171,8 @@ test('should accept an appointment with exactly 30 minutes duration', () => {
 
   const appointment = new Appointment({
     customer: 'John Doe',
-    provider: 'Jane Doe',
+    providerId: 'provider-123',
+    serviceId: 'service-123',
     startAt,
     endAt,
   });
@@ -175,7 +187,8 @@ test('cannot create an appointment with less than 30 minutes duration', () => {
   expect(() => {
     new Appointment({
       customer: 'John Doe',
-      provider: 'Jane Doe',
+      providerId: 'provider-123',
+      serviceId: 'service-123',
       startAt,
       endAt,
     });
@@ -189,7 +202,8 @@ test('should generate createdAt automatically', () => {
 
   const appointment = new Appointment({
     customer: 'John Doe',
-    provider: 'Jane Doe',
+    providerId: 'provider-123',
+    serviceId: 'service-123',
     startAt,
     endAt,
   });
@@ -209,7 +223,8 @@ test('should accept a custom createdAt', () => {
 
   const appointment = new Appointment({
     customer: 'John Doe',
-    provider: 'Jane Doe',
+    providerId: 'provider-123',
+    serviceId: 'service-123',
     startAt,
     endAt,
     createdAt: customCreatedAt,
@@ -224,7 +239,8 @@ test('should have canceledAt as null by default', () => {
 
   const appointment = new Appointment({
     customer: 'John Doe',
-    provider: 'Jane Doe',
+    providerId: 'provider-123',
+    serviceId: 'service-123',
     startAt,
     endAt,
   });
