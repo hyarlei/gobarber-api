@@ -7,6 +7,7 @@ Este projeto é um sistema de agendamento para barbearias focado em alta disponi
 ## 🗺️ Mapa de Implementação
 
 ### 🧶 1. Camada de Domínio (O Coração)
+
 As regras que nunca mudam, independente do banco de dados ou framework.
 
 #### ✅ Entidades de Domínio
@@ -24,21 +25,25 @@ As regras que nunca mudam, independente do banco de dados ou framework.
 ---
 
 ### ⚙️ 2. Camada de Aplicação (Use Cases)
+
 Onde a mágica acontece e o fluxo é orquestrado.
 
 #### ✅ Casos de Uso Implementados
 
 **Appointments:**
+
 - [X] CreateAppointment (2 testes)
 - [ ] CancelAppointment
 - [ ] GetProviderAvailability (Listar horários livres)
 
 **Services:**
+
 - [X] CreateService (5 testes)
 - [X] ListServices (4 testes)
 - [X] UpdateService (10 testes)
 
 **Providers (Barbers):**
+
 - [X] CreateProvider (6 testes)
 - [X] ListProviders (4 testes)
 - [X] UpdateProvider (10 testes)
@@ -52,6 +57,7 @@ Onde a mágica acontece e o fluxo é orquestrado.
 ---
 
 ### 🏗️ 3. Camada de Infraestrutura (O Mundo Externo)
+
 A ponte com as ferramentas (Prisma, NestJS).
 
 #### ✅ Banco de Dados
@@ -65,11 +71,13 @@ A ponte com as ferramentas (Prisma, NestJS).
 #### ✅ Repositórios
 
 **In-Memory (para testes):**
+
 - [X] InMemoryAppointmentsRepository
 - [X] InMemoryServiceRepository
 - [X] InMemoryProviderRepository
 
 **Prisma (produção):**
+
 - [X] PrismaAppointmentsRepository (implementado e corrigido)
 - [X] PrismaServiceRepository
 - [X] PrismaProviderRepository
@@ -83,16 +91,19 @@ A ponte com as ferramentas (Prisma, NestJS).
 ---
 
 ### 🧪 4. Qualidade e Testes (Selo Sênior)
+
 O que garante que o sistema não vai quebrar no deploy.
 
 #### ✅ Testes Unitários (79 testes passando)
 
 **Entidades:**
+
 - [X] Appointment (15 testes) - Validações de domínio
 - [X] Service (11 testes) - Regras de negócio
 - [X] Provider (11 testes) - Validação de email
 
 **Use Cases:**
+
 - [X] Services: Create, List, Update (19 testes)
 - [X] Providers: Create, List, Update (20 testes)
 - [X] Appointments: Create (2 testes)
