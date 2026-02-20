@@ -1,14 +1,14 @@
 import crypto from 'crypto';
 
-export interface ServiceProps {
-    name: string; 
+export interface ProviderProps {
+    name: string;
     email: string;
     phone?: string;
 }
 
-export class Service {
+export class Provider {
     private _id: string;
-    private props: ServiceProps;
+    private props: ProviderProps;
 
     get id() {
         return this._id;
@@ -26,13 +26,16 @@ export class Service {
         return this.props.phone
     }
 
-    constructor(props: ServiceProps, id?: string) {
+    constructor(props: ProviderProps, id?: string) {
         if (!props.name || props.name.trim() === '') {
             throw new Error('Name is required');
         }
-
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (!props.email || props.email.trim() === '') {
             throw new Error('Email is required');
+        }
+        if (!emailRegex.test(props.email)) {
+            throw new Error('Invalid email format');
         }
 
         this._id = id || crypto.randomUUID();
