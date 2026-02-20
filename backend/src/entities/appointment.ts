@@ -71,6 +71,14 @@ export class Appointment {
       throw new Error('Appointment must be at least 30 minutes long')
     }
 
+    if (!props.providerId || props.providerId.trim() === '') {
+      throw new Error('Provider ID is required');
+    }
+
+    if (!props.serviceId || props.serviceId.trim() === '') {
+      throw new Error('Service ID is required');
+    }
+
     this._id = id || crypto.randomUUID();
     this.props = {
       ...props,
