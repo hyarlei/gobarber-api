@@ -3,13 +3,14 @@ import { Appointment } from "../../entities/appointment";
 import { AppointmentsRepository } from "../appointments-repository";
 
 export class PrismaAppointmentsRepository implements AppointmentsRepository {
-    constructor(private prisma: PrismaClient) {}
+    constructor(private prisma: PrismaClient) { }
 
     async create(appointment: Appointment): Promise<void> {
         await this.prisma.appointment.create({
             data: {
                 id: appointment.id,
-                provider: appointment.provider,
+                providerId: appointment.providerId,
+                serviceId: appointment.serviceId,
                 customer: appointment.customer,
                 startAt: appointment.startAt,
                 endAt: appointment.endAt
@@ -50,11 +51,15 @@ export class PrismaAppointmentsRepository implements AppointmentsRepository {
             return null;
         }
 
-        return new Appointment({
-            customer: raw.customer,
-            provider: raw.provider,
-            startAt: raw.startAt,
-            endAt: raw.endAt,
-        }), raw.id;
+        return new Appointment(
+            {
+                customer: raw.customer,
+                providerId: raw.providerId,
+                serviceId: raw.serviceId,
+                startAt: raw.startAt,
+                endAt: raw.endAt,
+            },
+            raw.id
+        );
     }
 }
