@@ -40,7 +40,7 @@ export class Service {
         if (!props.name || props.name.trim() === '') {
             throw new Error('Name is required');
         }
-        
+
         if (props.price <= 0) {
             throw new Error('Price must be greater than zero');
         }
